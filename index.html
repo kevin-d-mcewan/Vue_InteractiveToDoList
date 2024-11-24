@@ -3,23 +3,34 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
-		<title>Building With Vue</title>
+		<title>Vue Template</title>
 		<link href="style.css" rel="stylesheet" type="text/css" />
-
 		<script src="https://cdn.jsdelivr.net/npm/vue@3.5.12/dist/vue.global.min.js"></script>
 	</head>
-
 	<body>
 		<h1>Build An Interactive To Do List</h1>
-
 		<div id="todo-list">
-			<form>
+			<!-- 'v-on:submit.prevent...' is done so that multiple items can not be added multiple times quickly -->
+			<form v-on:submit.prevent="addNewTask">
 				<label for="task-input">Add a new task</label>
-				<input id="task-input" placeholder="Example Watch Vue Course" />
+				<input
+					v-model="newTask"
+					id="task-input"
+					placeholder="Eg. Watch Vue course"
+				/>
 				<button>Submit</button>
 			</form>
+			<ul>
+			 <!-- Container for ToDo List -->
+				<todo-item
+					v-for="(task, index) in tasks"
+					:key="task.id"
+					:title="task.title"
+					@remove="tasks.splice(index, 1)"
+				>
+				</todo-item>
+			</ul>
 		</div>
-
 		<script src="script.js"></script>
 	</body>
 </html>
